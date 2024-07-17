@@ -359,7 +359,7 @@ static void patched_cs_validate_page(vnode_t vp, memory_object_t pager, memory_o
             }
 
             if (UNLIKELY(strcmp(path, heliosWallpaperPath) == 0)) {
-                path_result = searchAndPatch(data, PAGE_SIZE, path, rasterSampleCountOriginal, rasterSampleCountPatched, "WallpaperHeliosExtension", false);
+                patch_result = searchAndPatch(data, PAGE_SIZE, path, rasterSampleCountOriginal, rasterSampleCountPatched, "WallpaperHeliosExtension", false);
                 if (patch_result) {
                     return;
                 }
