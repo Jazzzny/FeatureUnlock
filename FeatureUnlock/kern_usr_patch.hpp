@@ -94,4 +94,4 @@ static const uint8_t rasterSampleCountOriginal[] = {
 
 static const uint8_t rasterSampleCountPatched[] = {
     0x78, 0x20, 0x00, 0x90, 0xE9, 0x97, 0x00, 0x00
-}
+};
