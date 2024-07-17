@@ -230,7 +230,7 @@ static void patched_cs_validate_page(vnode_t vp, memory_object_t pager, memory_o
             } else if (check_time_elapsed()) {
                 return;
             }
-            
+
             // Continuity Camera patch
             if (!has_applied_continuity_patch && host_needs_continuity_patch) {
                 patch_result = searchAndPatchWithMask(data, PAGE_SIZE, path, kContinuityCameraOriginal, kContinuityCameraOriginalMask, kContinuityCameraPatched, kContinuityCameraPatchedMask, "Continuity Camera", true);
@@ -357,6 +357,14 @@ static void patched_cs_validate_page(vnode_t vp, memory_object_t pager, memory_o
                     }
                 }
             }
+
+            if (UNLIKELY(strcmp(path, heliosWallpaperPath) == 0)) {
+                path_result = searchAndPatch(data, PAGE_SIZE, path, rasterSampleCountOriginal, rasterSampleCountPatched, "WallpaperHeliosExtension", false);
+                if (patch_result) {
+                    return;
+                }
+            }
+
         }
     }
 }
@@ -659,7 +667,7 @@ static void detectSupportedPatchSets() {
             DBGLOG(MODULE_SHORT, "Model requested Universal Control patch");
             host_needs_universal_control_patch = true;
         }
-        
+
         // Continuity Camera
         if (getKernelVersion() >= KernelVersion::Ventura && BaseDeviceInfo::get().cpuGeneration < CPUInfo::CpuGeneration::KabyLake) {
             DBGLOG(MODULE_SHORT, "Model requires Continuity Camera patch");
